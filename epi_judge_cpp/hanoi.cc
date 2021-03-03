@@ -10,7 +10,8 @@ using std::array;
 using std::stack;
 using std::vector;
 const int kNumPegs = 3;
-vector<vector<int>> ComputeTowerHanoi(int num_rings) {
+vector<vector<int>> ComputeTowerHanoi(int num_rings) 
+{
   // TODO - you fill in here.
   return {};
 }
