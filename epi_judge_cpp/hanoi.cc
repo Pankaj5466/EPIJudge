@@ -10,11 +10,42 @@ using std::array;
 using std::stack;
 using std::vector;
 const int kNumPegs = 3;
+
+void ComputeTowerHanoiSteps(int num_rings, array<stack<int>,kNumPegs> & pegs, int from_peg, int to_peg, int using_peg, vector<vector<int>>& ans)
+{
+ //   printf("ComputeTowerHanoiSteps: num_rings = %d,(%d->(%d)->%d)\n", num_rings, from_peg, to_peg, using_peg);
+
+    if (num_rings < 1)
+        return;
+
+    ComputeTowerHanoiSteps(num_rings - 1, pegs, from_peg, to_peg, using_peg,ans);
+
+    pegs[to_peg].push(pegs[from_peg].top());
+    pegs[from_peg].pop();
+
+    printf("Moving (%d->(%d)->%d)\n", from_peg, to_peg, using_peg);
+    ans.push_back(vector<int>{from_peg, to_peg});
+
+    ComputeTowerHanoiSteps(num_rings - 1, pegs, using_peg, to_peg, from_peg,ans);
+
+}
 vector<vector<int>> ComputeTowerHanoi(int num_rings) 
 {
   // TODO - you fill in here.
-  return {};
+
+    array<stack<int>, kNumPegs> pegs;
+    vector<vector<int>> ans;
+
+    for (int i = num_rings; i >= 1; i--)
+        pegs[0].push(i);
+
+    printf("\nComputeTowerHanoi: num_rings = %d\n",num_rings);
+    ComputeTowerHanoiSteps(num_rings, pegs, 0, 1, 2,ans);
+
+
+  return ans;
 }
+
 void ComputeTowerHanoiWrapper(TimedExecutor& executor, int num_rings)
 {
   array<stack<int>, kNumPegs> pegs;
