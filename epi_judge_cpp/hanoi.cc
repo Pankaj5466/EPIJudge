@@ -14,7 +14,8 @@ vector<vector<int>> ComputeTowerHanoi(int num_rings) {
   // TODO - you fill in here.
   return {};
 }
-void ComputeTowerHanoiWrapper(TimedExecutor& executor, int num_rings) {
+void ComputeTowerHanoiWrapper(TimedExecutor& executor, int num_rings)
+{
   array<stack<int>, kNumPegs> pegs;
   for (int i = num_rings; i >= 1; --i) {
     pegs[0].push(i);
