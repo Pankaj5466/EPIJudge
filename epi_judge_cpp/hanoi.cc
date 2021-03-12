@@ -11,14 +11,27 @@ using std::stack;
 using std::vector;
 const int kNumPegs = 3;
 
+void printStack(const array<stack<int>, kNumPegs>& pegs)
+{
+    for (int i = 0; i < kNumPegs; i++)
+    {
+        stack<int> stack1 = pegs[i];
+
+        while (stack1.empty() != true)
+            printf("%d ", stack1.top()), stack1.pop();
+        printf("\n");
+    }
+}
+
 void ComputeTowerHanoiSteps(int num_rings, array<stack<int>,kNumPegs> & pegs, int from_peg, int to_peg, int using_peg, vector<vector<int>>& ans)
 {
- //   printf("ComputeTowerHanoiSteps: num_rings = %d,(%d->(%d)->%d)\n", num_rings, from_peg, to_peg, using_peg);
+    printf("ComputeTowerHanoiSteps: num_rings = %d,(%d->(%d)->%d)\n", num_rings, from_peg, to_peg, using_peg);
+    printStack(pegs);
 
     if (num_rings < 1)
         return;
 
-    ComputeTowerHanoiSteps(num_rings - 1, pegs, from_peg, to_peg, using_peg,ans);
+    ComputeTowerHanoiSteps(num_rings - 1, pegs, from_peg, using_peg, to_peg,ans);
 
     pegs[to_peg].push(pegs[from_peg].top());
     pegs[from_peg].pop();
@@ -42,6 +55,9 @@ vector<vector<int>> ComputeTowerHanoi(int num_rings)
     printf("\nComputeTowerHanoi: num_rings = %d\n",num_rings);
     ComputeTowerHanoiSteps(num_rings, pegs, 0, 1, 2,ans);
 
+    printf("ORDER of move is\n");
+    for (int i = 0; i < ans.size(); i++)
+        printf("(%d->%d)\n", ans[i][0], ans[i][1]);
 
   return ans;
 }
